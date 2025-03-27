@@ -1,0 +1,62 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:newsapp/constant.dart';
+import 'package:newsapp/models/news_article.dart';
+
+class NewsList extends StatefulWidget {
+  const NewsList({super.key});
+
+  @override
+  State<NewsList> createState() => _NewsListState();
+}
+
+class _NewsListState extends State<NewsList> {
+  List<NewsArticle> _newsArtticles = [];
+  void getNews() async {
+    final response = await http.get(
+        Uri.parse('https://newsapi.org/v2/everything?q=tesla&apiKey=$apiKey'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> json = jsonDecode(response.body);
+
+      final List<dynamic> articles = json['articles'];
+
+      final articlesModelList = articles.map((article) {
+        return NewsArticle.fromJson(article);
+      }).toList();
+      setState(() {
+        _newsArtticles = articlesModelList;
+      });
+
+      print(_newsArtticles);
+    } else {
+      throw Exception('Fail to load News');
+    }
+    print(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNews();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('News List'),
+      ),
+      body: ListView.builder(
+        itemCount: _newsArtticles.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(_newsArtticles[index].title),
+          );
+        },
+      ),
+    );
+  }
+}
