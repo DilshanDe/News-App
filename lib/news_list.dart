@@ -47,13 +47,29 @@ class _NewsListState extends State<NewsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News List'),
+        title: const Text('News List'),
       ),
       body: ListView.builder(
         itemCount: _newsArtticles.length,
         itemBuilder: (context, index) {
+          NewsArticle article = _newsArtticles[index];
+
+          if (article.title == '[Removed]' || article.urlToImage == '') {
+            return Container();
+          }
           return ListTile(
-            title: Text(_newsArtticles[index].title),
+            leading: Image.network(
+              _newsArtticles[index].urlToImage,
+              width: 100,
+              fit: BoxFit.fill,
+            ),
+            title: Text(article.title,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            subtitle: Text(
+              article.publishAt,
+              style: TextStyle(fontSize: 10),
+            ),
           );
         },
       ),
