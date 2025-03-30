@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:newsapp/constant.dart';
 import 'package:newsapp/models/news_article.dart';
+import 'package:newsapp/news_details.dart';
 
 class NewsList extends StatefulWidget {
   const NewsList({super.key});
@@ -58,6 +59,13 @@ class _NewsListState extends State<NewsList> {
             return Container();
           }
           return ListTile(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return NewsDeatils(
+                  newsArticle: article,
+                );
+              }));
+            },
             leading: Image.network(
               _newsArtticles[index].urlToImage,
               width: 100,
