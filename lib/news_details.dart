@@ -17,6 +17,43 @@ class NewsDeatils extends StatelessWidget {
             newsArticle.urlToImage,
             height: 300,
             fit: BoxFit.fill,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  newsArticle.title,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      newsArticle.publishAt,
+                      textAlign: TextAlign.justify,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      newsArticle.author,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  newsArticle.content,
+                )
+              ],
+            ),
           )
         ],
       ),
