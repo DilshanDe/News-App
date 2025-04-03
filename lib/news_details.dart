@@ -11,7 +11,14 @@ class NewsDeatils extends StatelessWidget {
       appBar: AppBar(
         title: Text("News Details"),
       ),
-      body: Column(),
+      body: Column(
+        children: [
+          Image.network(
+            newsArticle.urlToImage,
+            height: 300,
+          )
+        ],
+      ),
     );
   }
 }
