@@ -16,6 +16,7 @@ class NewsDeatils extends StatelessWidget {
           Image.network(
             newsArticle.urlToImage,
             height: 300,
+            fit: BoxFit.fill,
           )
         ],
       ),
